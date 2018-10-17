@@ -2,7 +2,7 @@
  * Copyright 2015 Drifty Co.
  * http://drifty.com/
  *
- * Ionic, v1.3.3
+ * Ionic, v1.3.5
  * A powerful HTML5 mobile app framework.
  * http://ionicframework.com/
  *
@@ -7009,21 +7009,21 @@ IonicModule
     });
 
     function handleMousedown(e) {
-      e.touches = e.touches || [{
-        screenX: e.screenX,
-        screenY: e.screenY
-      }];
+      // e.touches = e.touches || [{
+      //   screenX: e.screenX,
+      //   screenY: e.screenY
+      // }];
       // Mouse needs this
-      startY = Math.floor(e.touches[0].screenY);
+      startY = Math.floor(e.touches ? e.touches[0].screenY : e.screenY);
     }
 
     function handleTouchstart(e) {
-      e.touches = e.touches || [{
-        screenX: e.screenX,
-        screenY: e.screenY
-      }];
+      // e.touches = e.touches || [{
+      //   screenX: e.screenX,
+      //   screenY: e.screenY
+      // }];
 
-      startY = e.touches[0].screenY;
+      startY = e.touches ? e.touches[0].screenY : e.screenY;
     }
 
     function handleTouchend() {
@@ -7056,10 +7056,10 @@ IonicModule
     }
 
     function handleTouchmove(e) {
-      e.touches = e.touches || [{
-        screenX: e.screenX,
-        screenY: e.screenY
-      }];
+      // e.touches = e.touches || [{
+      //   screenX: e.screenX,
+      //   screenY: e.screenY
+      // }];
 
       // Force mouse events to have had a down event first
       if (!startY && e.type == 'mousemove') {
@@ -7067,15 +7067,15 @@ IonicModule
       }
 
       // if multitouch or regular scroll event, get out immediately
-      if (!canOverscroll || e.touches.length > 1) {
+      if (!canOverscroll || (e.touches && e.touches.length > 1)) {
         return;
       }
       //if this is a new drag, keep track of where we start
       if (startY === null) {
-        startY = e.touches[0].screenY;
+        startY = e.touches ? e.touches[0].screenY : e.screenY;
       }
 
-      deltaY = e.touches[0].screenY - startY;
+      deltaY = (e.touches ? e.touches[0].screenY : e.screenY) - startY;
 
       // how far have we dragged so far?
       // kitkat fix for touchcancel events http://updates.html5rocks.com/2014/05/A-More-Compatible-Smoother-Touch
