@@ -2237,7 +2237,7 @@ window.ionic.version = '1.3.5';
      * @returns {boolean} Whether we are running on iPad.
      */
     isIPad: function() {
-      if (/iPad/i.test(self.navigator.platform)) {
+      if (/iPad/i.test(self.navigator.platform) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 0)) {
         return true;
       }
       return /iPad/i.test(self.ua);
@@ -2304,7 +2304,7 @@ window.ionic.version = '1.3.5';
         platformName = WINDOWS_PHONE;
       } else if (self.ua.indexOf('Android') > 0) {
         platformName = ANDROID;
-      } else if (/iPhone|iPad|iPod/.test(self.ua)) {
+      } else if (/iPhone|iPad|iPod/.test(self.ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 0)) {
         platformName = IOS;
       } else {
         platformName = self.navigator.platform && navigator.platform.toLowerCase().split(' ')[0] || '';
